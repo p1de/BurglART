@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Audio")]
+    public GameObject footsteps;
+
     [Header("Movement")]
     public float moveSpeed;
 
@@ -22,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        footsteps.SetActive(false);
     }
 
     private void Update()
@@ -39,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (horizontalInput != 0 || verticalInput != 0) footsteps.SetActive(true);
+        else footsteps.SetActive(false);
     }
 
     private void MovePlayer()
